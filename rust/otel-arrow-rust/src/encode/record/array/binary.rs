@@ -23,6 +23,10 @@ impl ArrayAppend for BinaryBuilder {
     fn append_value(&mut self, value: &Self::Native) {
         self.append_value(value);
     }
+
+    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
+        self
+    }
 }
 
 impl ArrayBuilder for BinaryBuilder {
