@@ -14,6 +14,8 @@
 //! an all-null) column, an array that may be a dictionary, of an array or native types. It will
 //! handle converting between different builders dynamically  based on the data which is appended.
 
+use std::any::Any;
+
 use arrow::array::{
     ArrayRef, ArrowPrimitiveType, BinaryBuilder, BinaryDictionaryBuilder, FixedSizeBinaryBuilder,
     FixedSizeBinaryDictionaryBuilder, PrimitiveBuilder, PrimitiveDictionaryBuilder, StringBuilder,
@@ -71,13 +73,6 @@ pub trait ArrayAppend {
     type Native;
 
     fn append_value(&mut self, value: &Self::Native);
-
-    /// Returns the builder as a mutable `Any` reference.
-    ///
-    /// This is most useful when one wants to call mutable APIs on a specific builder
-    /// type. In this case, one can first cast this into a `Any`, and then use
-    /// `downcast_mut` to get a reference on the specific builder.
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any;
 }
 
 /// this trait implementation called by adaptive array builders on the base array builders to
@@ -92,13 +87,6 @@ pub trait CheckedArrayAppend {
     type Native;
 
     fn append_value(&mut self, value: &Self::Native) -> Result<(), ArrowError>;
-
-    /// Returns the builder as a mutable `Any` reference.
-    ///
-    /// This is most useful when one wants to call mutable APIs on a specific builder
-    /// type. In this case, one can first cast this into a `Any`, and then use
-    /// `downcast_mut` to get a reference on the specific builder.
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any;
 }
 
 /// This enum is a container that abstracts array builder which is either
@@ -137,6 +125,18 @@ pub struct AdaptiveArrayBuilder<TArgs, TN, TD8, TD16> {
     // will be NoArgs, but there are some cases where Array builder's constructors require args,
     // for example `FixedSizeBinary` requires the byte_width
     inner_args: TArgs,
+}
+
+impl<TArgs, TN, TD8, TD16> AdaptiveArrayBuilder<TArgs, TN, TD8, TD16>
+where
+    TArgs: 'static,
+    TN: 'static,
+    TD8: 'static,
+    TD16: 'static,
+{
+    fn as_any_mut(&mut self) -> &mut dyn Any {
+        self
+    }
 }
 
 impl<TN, TD8, TD16> AdaptiveArrayBuilder<NoArgs, TN, TD8, TD16>
@@ -205,21 +205,21 @@ where
 
 impl<T, TArgs, TN, TD8, TD16> ArrayAppend for AdaptiveArrayBuilder<TArgs, TN, TD8, TD16>
 where
-    TArgs: Clone + 'static,
-    TN: ArrayAppend<Native = T> + ArrayBuilderConstructor<Args = TArgs> + 'static,
+    TArgs: Clone,
+    TN: ArrayAppend<Native = T> + ArrayBuilderConstructor<Args = TArgs>,
     TD8: DictionaryArrayAppend<Native = T>
         + DictionaryBuilder<UInt8Type>
         + ArrayBuilderConstructor<Args = TArgs>
         + ConvertToNativeHelper
         + UpdateDictionaryIndexInto<TD16>
         + 'static,
-    <TD8 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
+    <TD8 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T>,
     TD16: DictionaryArrayAppend<Native = T>
         + DictionaryBuilder<UInt16Type>
         + ArrayBuilderConstructor<Args = TArgs>
         + ConvertToNativeHelper
         + 'static,
-    <TD16 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
+    <TD16 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T>,
 {
     type Native = T;
 
@@ -247,28 +247,22 @@ where
             }
         }
     }
-
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
-        self
-    }
 }
 
 impl<T, TArgs, TN, TD8, TD16> CheckedArrayAppend for AdaptiveArrayBuilder<TArgs, TN, TD8, TD16>
 where
-    TArgs: Clone + 'static,
-    TN: CheckedArrayAppend<Native = T> + ArrayBuilderConstructor<Args = TArgs> + 'static,
+    TArgs: Clone,
+    TN: CheckedArrayAppend<Native = T> + ArrayBuilderConstructor<Args = TArgs>,
     TD8: CheckedDictionaryArrayAppend<Native = T>
         + DictionaryBuilder<UInt8Type>
         + ArrayBuilderConstructor<Args = TArgs>
         + ConvertToNativeHelper
-        + UpdateDictionaryIndexInto<TD16>
-        + 'static,
+        + UpdateDictionaryIndexInto<TD16>,
     <TD8 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
     TD16: CheckedDictionaryArrayAppend<Native = T>
         + DictionaryBuilder<UInt16Type>
         + ArrayBuilderConstructor<Args = TArgs>
-        + ConvertToNativeHelper
-        + 'static,
+        + ConvertToNativeHelper,
     <TD16 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
 {
     type Native = T;
@@ -302,10 +296,6 @@ where
                 }
             }
         }
-    }
-
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
-        self
     }
 }
 
@@ -382,11 +372,11 @@ pub mod test {
             + ArrayBuilderConstructor<Args = TArgs>
             + ConvertToNativeHelper
             + UpdateDictionaryIndexInto<TD16>,
-        <TD8 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
+        <TD8 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T>,
         TD16: DictionaryBuilder<UInt16Type>
             + ArrayBuilderConstructor<Args = TArgs>
             + ConvertToNativeHelper,
-        <TD16 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T> + 'static,
+        <TD16 as ConvertToNativeHelper>::Accessor: NullableArrayAccessor<Native = T>,
     {
         // tests some common behaviours of checked & unchecked array builders:
 
@@ -427,10 +417,7 @@ pub mod test {
         expected_data_type: DataType,
     ) where
         T: PartialEq + std::fmt::Debug,
-        TN: ArrayAppend<Native = T>
-            + ArrayBuilderConstructor<Args = NoArgs>
-            + ArrayBuilder
-            + 'static,
+        TN: ArrayAppend<Native = T> + ArrayBuilderConstructor<Args = NoArgs> + ArrayBuilder,
         TD8: DictionaryArrayAppend<Native = T>
             + DictionaryBuilder<UInt8Type>
             + ArrayBuilderConstructor<Args = NoArgs>

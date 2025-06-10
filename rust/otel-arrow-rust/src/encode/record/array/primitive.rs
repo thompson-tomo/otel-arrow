@@ -27,10 +27,6 @@ where
     fn append_value(&mut self, value: &<Self as ArrayAppend>::Native) {
         self.append_value(*value);
     }
-
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
-        self
-    }
 }
 
 impl<T> ArrayBuilder for PrimitiveBuilder<T>

@@ -7,6 +7,7 @@ use arrow::{
     array::{ArrayRef, StructArray},
     datatypes::{DataType, Field, FieldRef},
 };
+use paste::paste;
 
 use crate::encode::record::array::{
     AdaptiveArrayBuilder, ArrayAppend, ArrayBuilder, ArrayOptions, BinaryArrayBuilder,
@@ -29,14 +30,21 @@ enum FieldBuilder {
     // ...
 }
 
-impl<T> From<T> for FieldBuilder
-where
-    T: ArrayAppend + 'static,
-{
-    fn from(value: T) -> Self {
-        todo!()
-    }
+macro_rules! impl_builder_from {
+    ($type:ident) => {
+        paste! {
+            impl From<[<$type ArrayBuilder>]> for FieldBuilder {
+                fn from(value: [<$type ArrayBuilder>]) -> Self {
+                    Self::[<$type>](value)
+                }
+            }
+        }
+    };
 }
+
+impl_builder_from!(String);
+impl_builder_from!(Binary);
+impl_builder_from!(UInt8);
 
 impl FieldBuilder {
     fn finish(&mut self) -> Option<ArrayRef> {
@@ -133,17 +141,34 @@ mod test {
 
     #[test]
     fn test_get_field() {
-        let struct_builder = AdaptiveStructBuilder::new(vec![(
-            // TODO it's ugly how we have to specify nullable here twice ...
-            FieldData {
-                name: "test".to_string(),
-                nullable: false,
-            },
-            StringArrayBuilder::new(ArrayOptions {
-                dictionary_options: None,
-                nullable: true,
-            }),
-        )]);
+        // this "do_positive_test" macro just ensures that we can get the field builder from
+        // the struct builder for the given type
+        macro_rules! do_positive_test {
+            ($type:ident) => {
+                paste! {
+                    let mut struct_builder = AdaptiveStructBuilder::new(vec![(
+                        // TODO it's ugly how we have to specify nullable here twice ...
+                        FieldData {
+                            name: "test".to_string(),
+                            nullable: false,
+                        },
+                        [<$type ArrayBuilder>]::new(ArrayOptions {
+                            dictionary_options: None,
+                            nullable: true,
+                        }),
+                    )]);
+                    assert!(struct_builder.field_builder::<[<$type ArrayBuilder>]>(0).is_some(),
+                        "Expected field_builder at index 0 to return Some for type {}ArrayBuilder, but got None",
+                        stringify!($type)
+                    );
+                }
+            };
+        }
+
+        do_positive_test!(String);
+        do_positive_test!(Binary);
+        do_positive_test!(UInt8);
+
         // check it works for each type of field
     }
 }

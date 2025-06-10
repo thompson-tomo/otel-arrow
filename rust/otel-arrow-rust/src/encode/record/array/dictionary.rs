@@ -235,10 +235,6 @@ where
         self.inner.append_value(value);
         Ok(())
     }
-
-    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
-        unimplemented!("should not be called on this adapter")
-    }
 }
 
 // This helper function populates the native builder from the dict values in a way
