@@ -9,13 +9,10 @@ use arrow::{
 };
 
 use crate::encode::record::array::{
-    ArrayAppend, ArrayBuilder, ArrayOptions, BinaryArrayBuilder, CheckedArrayAppend,
-    FixedSizeBinaryArrayBuilder, PrimitiveArrayBuilder, StringArrayBuilder, UInt8ArrayBuilder,
+    AdaptiveArrayBuilder, ArrayAppend, ArrayBuilder, ArrayOptions, BinaryArrayBuilder,
+    CheckedArrayAppend, FixedSizeBinaryArrayBuilder, PrimitiveArrayBuilder, StringArrayBuilder,
+    UInt8ArrayBuilder,
 };
-
-struct AdaptiveStructBuilder {
-    fields: Vec<(FieldData, FieldBuilder)>,
-}
 
 struct FieldData {
     name: String,
@@ -32,6 +29,15 @@ enum FieldBuilder {
     // ...
 }
 
+impl<T> From<T> for FieldBuilder
+where
+    T: ArrayAppend + 'static,
+{
+    fn from(value: T) -> Self {
+        todo!()
+    }
+}
+
 impl FieldBuilder {
     fn finish(&mut self) -> Option<ArrayRef> {
         match self {
@@ -43,18 +49,21 @@ impl FieldBuilder {
     }
 }
 
+struct AdaptiveStructBuilder {
+    fields: Vec<(FieldData, FieldBuilder)>,
+}
+
 impl AdaptiveStructBuilder {
-    fn new() -> Self {
+    fn new<T, B>(fields: T) -> Self
+    where
+        T: IntoIterator<Item = (FieldData, B)>,
+        B: Into<FieldBuilder>,
+    {
         Self {
-            fields: vec![(
-                FieldData {
-                    name: "a".to_string(),
-                    nullable: true,
-                },
-                FieldBuilder::String(StringArrayBuilder::new(ArrayOptions {
-                    ..Default::default()
-                })),
-            )],
+            fields: fields
+                .into_iter()
+                .map(|(data, builder)| (data, builder.into()))
+                .collect(),
         }
     }
 
@@ -96,7 +105,7 @@ impl AdaptiveStructBuilder {
         }
     }
 
-    /// TODO should this thing return an option ArrayRef if all the rows are nullable?
+    /// TODO should this thing return an option ArrayRef if all the rows are nullable? (A: yes)
     fn finish(&mut self) -> ArrayRef {
         let mut arrays: Vec<(FieldRef, ArrayRef)> = vec![];
         for i in 0..self.fields.len() {
@@ -118,17 +127,23 @@ impl AdaptiveStructBuilder {
 
 #[cfg(test)]
 mod test {
+    use crate::encode::record::array::{ArrayBuilderConstructor, NoArgs};
+
     use super::*;
 
     #[test]
-    fn test_smoke_TODO_deletehtis() {
-        // TODO should fill in all the other types here and confirm that they work
-        let mut struct_b = AdaptiveStructBuilder::new();
-        let str_b = struct_b.field_builder::<StringArrayBuilder>(0);
-        assert!(str_b.is_some());
-        let str_b2 = struct_b.field_builder::<StringArrayBuilder>(1);
+    fn test_get_field() {
+        let struct_builder = AdaptiveStructBuilder::new(vec![(
+            // TODO it's ugly how we have to specify nullable here twice ...
+            FieldData {
+                name: "test".to_string(),
+                nullable: false,
+            },
+            StringArrayBuilder::new(ArrayOptions {
+                dictionary_options: None,
+                nullable: true,
+            }),
+        )]);
+        // check it works for each type of field
     }
-
-    #[test]
-    fn test_smoke_TODO_deletethis2() {}
 }
