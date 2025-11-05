@@ -29,6 +29,7 @@ use otel_arrow_rust::otap::OtapArrowRecords;
 use otel_arrow_rust::otap::filter::build_uint16_id_filter;
 use otel_arrow_rust::proto::opentelemetry::arrow::v1::ArrowPayloadType;
 use otel_arrow_rust::schema::consts;
+use roaring::RoaringBitmap;
 
 use crate::common::{AttributesIdentifier, ColumnAccessor, try_static_scalar_to_literal};
 use crate::consts::ROW_NUMBER_COL;
@@ -553,7 +554,7 @@ impl ExecutablePipeline {
                     reason: format!("expected u16 array, found type {}", source_ids.data_type()),
                 })?;
 
-        let ids_set: HashSet<u16> = ids_as_u16.iter().flatten().collect();
+        let ids_set: RoaringBitmap = ids_as_u16.iter().flatten().map(|i| i as u32).collect();
         let target_ids = get_required_array(child_rb, consts::PARENT_ID).map_err(|e| {
             Error::InvalidBatchError {
                 reason: format!("invalid batch: {e}"),

@@ -14,6 +14,7 @@ thiserror = { workspace = true }
 async-trait = { workspace = true}
 datafusion = { workspace = true }
 prost = { workspace = true }
+roaring = { workspace = true }
 
 data_engine_expressions = { path = "../expressions" }
 data_engine_kql_parser = { path = "../kql-parser" }
