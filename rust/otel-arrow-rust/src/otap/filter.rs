@@ -5,6 +5,7 @@ use arrow::array::{
     Array, ArrayRef, BooleanArray, BooleanBuilder, DictionaryArray, StringArray, UInt16Array,
 };
 use arrow::datatypes::{DataType, UInt8Type, UInt16Type};
+use roaring::RoaringBitmap;
 
 use crate::otap::OtapArrowRecords;
 use crate::otap::error::{self, Result};
@@ -187,7 +188,7 @@ fn regex_match_column(src: &ArrayRef, regex: &str) -> Result<BooleanArray> {
 /// This will return an error if the column is not DataType::UInt16
 pub fn build_uint16_id_filter(
     id_column: &Arc<dyn Array>,
-    id_set: HashSet<u16>,
+    id_set: RoaringBitmap,
 ) -> Result<BooleanArray> {
     if (id_column.len() >= ID_COLUMN_LENGTH_MIN_THRESHOLD)
         && ((id_set.len() as f64 / id_column.len() as f64) <= IDS_PERCENTAGE_MAX_THRESHOLD)
@@ -195,7 +196,7 @@ pub fn build_uint16_id_filter(
         let mut combined_id_filter = BooleanArray::new_null(id_column.len());
         // build id filter using the id hashset
         for id in id_set {
-            let id_scalar = UInt16Array::new_scalar(id);
+            let id_scalar = UInt16Array::new_scalar(id as u16);
             // since we use a scalar here we don't have to worry a column length mismatch when we compare
             let id_filter = arrow::compute::kernels::cmp::eq(id_column, &id_scalar)
                 .expect("can compare uint16 id column with uint16 scalar");
@@ -220,7 +221,7 @@ pub fn build_uint16_id_filter(
         for uint16_id in uint16_id_array {
             match uint16_id {
                 Some(uint16) => {
-                    id_filter.append_value(id_set.contains(&uint16));
+                    id_filter.append_value(id_set.contains(uint16 as u32));
                 }
                 None => {
                     id_filter.append_value(false);
@@ -239,7 +240,7 @@ fn get_uint16_ids(
     id_column: &Arc<dyn Array>,
     filter: &BooleanArray,
     column_type: &str,
-) -> Result<HashSet<u16>> {
+) -> Result<RoaringBitmap> {
     // get ids being removed
     // error out herre
     let filtered_ids =
@@ -254,7 +255,8 @@ fn get_uint16_ids(
             actual: filtered_ids.data_type().clone(),
             expect: DataType::UInt16,
         })?;
-    Ok(filtered_ids.iter().flatten().collect())
+    
+    Ok(filtered_ids.iter().flatten().map(|i| i as u32).collect())
 }
 
 /// apply_filter() takes a payload, payload_type, and filter and uses the payload type

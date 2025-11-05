@@ -518,7 +518,7 @@ impl LogMatchProperties {
         ids_counted.retain(|_key, value| *value >= required_ids_count);
 
         // return filter built with the ids
-        build_uint16_id_filter(parent_id_column, ids_counted.into_keys().collect())
+        build_uint16_id_filter(parent_id_column, ids_counted.into_keys().map(|i| i as u32).collect())
     }
 
     /// Creates a booleanarray that will filter a log record record batch based on the
