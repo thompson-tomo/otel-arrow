@@ -7,6 +7,7 @@ use arrow::array::{
 use arrow::datatypes::{DataType, UInt8Type, UInt16Type};
 use roaring::RoaringBitmap;
 
+use crate::otap::transform::create_next_element_equality_array;
 use crate::otap::OtapArrowRecords;
 use crate::otap::error::{self, Result};
 use crate::proto::opentelemetry::arrow::v1::ArrowPayloadType;
@@ -217,19 +218,51 @@ pub fn build_uint16_id_filter(
                 expect: DataType::UInt16,
             })?;
 
-        let mut id_filter = BooleanBuilder::new();
-        for uint16_id in uint16_id_array {
-            match uint16_id {
-                Some(uint16) => {
-                    id_filter.append_value(id_set.contains(uint16 as u32));
-                }
-                None => {
-                    id_filter.append_value(false);
+        let mut id_filter = BooleanBuilder::with_capacity(uint16_id_array.len());
+        let next_eq_equality_array = create_next_element_equality_array(id_column)?;
+
+        // TODO handle case where the id array is empty for some reason
+
+        let mut curr_range_start = 0;
+        // let is_null_range = uint16_id_array.is_valid(0);
+        for i in 0..next_eq_equality_array.len() {
+            if next_eq_equality_array.value(i) {
+                
+            } else {
+                if uint16_id_array.is_valid(i) {
+                    let val_for_range = uint16_id_array.value(curr_range_start);
+                    let range_len = i - curr_range_start + 1;
+                    id_filter.append_n(range_len, id_set.contains(val_for_range as u32));
+                    curr_range_start = i + 1;
+                } else {
+                    todo!()
                 }
             }
         }
 
-        Ok(id_filter.finish())
+        // handle last range
+        let val_for_range = uint16_id_array.value(curr_range_start);
+        let range_len = uint16_id_array.len() - curr_range_start;
+        // TODO handle case where this is a null range
+        id_filter.append_n(range_len, id_set.contains(val_for_range as u32));
+
+
+
+        
+        // for uint16_id in uint16_id_array {
+        //     match uint16_id {
+        //         Some(uint16) => {
+        //             id_filter.append_value(id_set.contains(&uint16));
+        //         }
+        //         None => {
+        //             id_filter.append_value(false);
+        //         }
+        //     }
+        // }
+
+        let result = id_filter.finish();
+        // println!("{:?} with len = {}", result, result.len());
+        Ok(result)
     }
 }
 
