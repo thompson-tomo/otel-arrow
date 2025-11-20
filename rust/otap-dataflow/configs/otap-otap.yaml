@@ -6,19 +6,36 @@ settings:
 nodes:
   receiver:
     kind: receiver
-    plugin_urn: "urn:otel:otap:receiver"
+    plugin_urn: "urn:otel:otlp:receiver"
+    out_ports:
+      out_port:
+        destinations:
+          - attr
+        dispatch_strategy: round_robin
+    config:
+      listening_addr: "0.0.0.0:4317"
+      compression_method: gzip
+
+  attr:
+    kind: processor
+    plugin_urn: "urn:otap:processor:attributes_processor"
     out_ports:
       out_port:
         destinations:
           - exporter
         dispatch_strategy: round_robin
     config:
-      listening_addr: "127.0.0.1:4317"
-      response_stream_channel_size: 256 # Required: channel buffer capacity (number of messages)
-      # timeout: "30s" # Optional: timeout for RPC requests
+      actions:
+        - action: "rename"
+          source_key: "ios.app.state"
+          destination_key: "ios.app.state2"
+          apply_to: ["signal"]
+
   exporter:
     kind: exporter
     plugin_urn: "urn:otel:otap:exporter"
     config:
-      grpc_endpoint: "http://127.0.0.1:1235"
-      # timeout: "15s" # Optional: timeout for RPC requests
+      grpc_endpoint: "http://127.0.0.1:4318"
+      compression_method: zstd
+      arrow:
+        payload_compression: none
