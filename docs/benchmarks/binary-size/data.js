@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1769083935022,
+  "lastUpdate": 1769140865397,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -959,6 +959,38 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-arm64-binary-size",
             "value": 69.99,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Aaron Marten",
+            "username": "AaronRM",
+            "email": "AaronRM@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "cc1a2a2eaefa8d6af587fc054e9099333748b2c4",
+          "message": "[otap-df-quiver] Track highest segment sequence during startup to avoid ID reuse (#1856)\n\n# Change Summary\n\nFixes #1855 by ensuring the Quiver engine scans existing segment files\nand starts with the next sequence number on recovery.\n\n## What issue does this PR close?\n\n* Closes #1855 \n\n## How are these changes tested?\n\nAdd `restart_recovers_segment_sequence_numbers` to validate that the\nissue is resolved & manual validation\n\n## Are there any user-facing changes?\n\nNo.",
+          "timestamp": "2026-01-22T17:26:08Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/cc1a2a2eaefa8d6af587fc054e9099333748b2c4"
+        },
+        "date": 1769140863228,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 80.73,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 69.05,
             "unit": "MB"
           }
         ]
