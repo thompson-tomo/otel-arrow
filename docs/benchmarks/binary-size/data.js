@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1772419187751,
+  "lastUpdate": 1772505675243,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -2152,6 +2152,33 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/thompson-tomo/otel-arrow/commit/308023048a93dd306b0e1525808232b53afcdd7b"
         },
         "date": 1772419184678,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 86.53,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Jake Dern",
+            "username": "JakeDern",
+            "email": "33842784+JakeDern@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "63a23cf282c43a3dceb453f6fd17c794a4e9bb70",
+          "message": "fix: Mark time_unix_nano as required for metrics histogram dp tables  (#2151)\n\n# Change Summary\n\nRemove `schema.Optional` metadata from histogram datapoint types.\n\n## What issue does this PR close?\n\n\n* Closes #2150\n\n## How are these changes tested?\n\nRan the unit tests\n\n## Are there any user-facing changes?\n\nNo\n\nCo-authored-by: albertlockett <a.lockett@f5.com>",
+          "timestamp": "2026-03-02T22:57:12Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/63a23cf282c43a3dceb453f6fd17c794a4e9bb70"
+        },
+        "date": 1772505671994,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
