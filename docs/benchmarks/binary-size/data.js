@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1773283164488,
+  "lastUpdate": 1773369464536,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -2427,6 +2427,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-binary-size",
             "value": 88.54,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Cijo Thomas",
+            "username": "cijothomas",
+            "email": "cijo.thomas@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "bde436efd7b985136eec3bd265d685d115f76ae8",
+          "message": "Add batchprocessor to perf tests (#2246)\n\nBlocked on https://github.com/open-telemetry/otel-arrow/issues/2194\n\nTrying to introduce batch processor to Perf tests, so as to catch ^\nissues earlier. And also to actually measure the perf impact of\nbatching!\n\n---------\n\nCo-authored-by: Joshua MacDonald <jmacd@users.noreply.github.com>\nCo-authored-by: Laurent Quérel <l.querel@f5.com>",
+          "timestamp": "2026-03-13T00:21:19Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/bde436efd7b985136eec3bd265d685d115f76ae8"
+        },
+        "date": 1773369462173,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 86.58,
             "unit": "MB"
           }
         ]
