@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775012790269,
+  "lastUpdate": 1775098268932,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -2967,6 +2967,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-binary-size",
             "value": 100.28,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Cijo Thomas",
+            "username": "cijothomas",
+            "email": "cithomas@microsoft.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "fc1132647b423a2027e74729fec2d2b49594167c",
+          "message": "Revert \"fix: Temporarily disable the nightly otap-filter-otap Go collector scenario\" (#2493)\n\nReverts open-telemetry/otel-arrow#2396 as we bumped to new Collector\nimage with the fix\nhttps://github.com/open-telemetry/otel-arrow/pull/2480",
+          "timestamp": "2026-04-01T21:18:09Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/fc1132647b423a2027e74729fec2d2b49594167c"
+        },
+        "date": 1775098266019,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 100.56,
             "unit": "MB"
           }
         ]
