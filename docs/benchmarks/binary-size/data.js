@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775098268932,
+  "lastUpdate": 1775184772678,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -2994,6 +2994,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-binary-size",
             "value": 100.56,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Ragu Marimuthu",
+            "username": "ragumarimuthu-git",
+            "email": "136855179+ragumarimuthu-git@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "854ffd851be5ef684e2a384de42d51c18bbea33d",
+          "message": "Add OTLP forward config for gRPC (4315->4317) and HTTP (4316->4318) (#2524)\n\n# Change Summary\n\n<!--\nReplace with a brief summary of the change in this PR\n-->\n\n## What issue does this PR close?\n\n<!--\nWe highly recommend correlation of every PR to an issue\n-->\n\n* Closes #NNN\n\n## How are these changes tested?\n\n## Are there any user-facing changes?\n\n <!-- If yes, provide further info below -->\n\n---------\n\nCo-authored-by: Ragu Marimuthu <136855179+Ragu2023@users.noreply.github.com>\nCo-authored-by: Laurent Quérel <laurent.querel@gmail.com>",
+          "timestamp": "2026-04-03T00:19:32Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/854ffd851be5ef684e2a384de42d51c18bbea33d"
+        },
+        "date": 1775184769180,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 100.66,
             "unit": "MB"
           }
         ]
