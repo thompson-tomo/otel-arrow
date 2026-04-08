@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1775530565423,
+  "lastUpdate": 1775616980237,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -3129,6 +3129,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-binary-size",
             "value": 101,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Jake Dern",
+            "username": "JakeDern",
+            "email": "33842784+JakeDern@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "72fba8d2a94cd5e20403875e9214756a86cd405f",
+          "message": "feat(temporal_reaggregation_processor): Add processor microbenchmarks (#2571)\n\n# Change Summary\n\nThis is a PR to add some microbenchmarks for the\ntemporal_reaggregation_processor. This is nice vs using the e2e\nframework to isolate the processor and be able to measure improvement\nbeyond %cpu granularity.\n\n## What issue does this PR close?\n\n* Part of #2422",
+          "timestamp": "2026-04-07T18:20:17Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/72fba8d2a94cd5e20403875e9214756a86cd405f"
+        },
+        "date": 1775616977945,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 101.24,
             "unit": "MB"
           }
         ]
