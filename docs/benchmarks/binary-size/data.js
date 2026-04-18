@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1776395091771,
+  "lastUpdate": 1776481141912,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -3394,6 +3394,33 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/thompson-tomo/otel-arrow/commit/6ef19a99a26f17c89a12f5dad18c737259c1509d"
         },
         "date": 1776395089401,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 102.9,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "c1ly",
+            "username": "c1ly",
+            "email": "129437996+c1ly@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "495588ee584201ea956c15c6fc102dc3465de675",
+          "message": "update container config to allow configurable wait_for setting (#2672)\n\n# Change Summary\n\nUpdate ContainerConfig struct to have a wait_for field of type WaitFor\nfrom the test container crate. Added additional functions to allow a\nuser to configure the WaitFor enum variant to use for a test container\n\n## What issue does this PR close?\n\n* Closes #2668\n\n## How are these changes tested?\n\nunit tests\n\n## Are there any user-facing changes?\n\nno\n\nCo-authored-by: albertlockett <a.lockett@f5.com>",
+          "timestamp": "2026-04-17T12:32:22Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/495588ee584201ea956c15c6fc102dc3465de675"
+        },
+        "date": 1776481139818,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
