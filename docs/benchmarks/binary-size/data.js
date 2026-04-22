@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1776740760426,
+  "lastUpdate": 1776827027848,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -3507,6 +3507,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-binary-size",
             "value": 102.91,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Mikel Blanchard",
+            "username": "CodeBlanch",
+            "email": "mblanchard@macrosssoftware.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "dd344850b0de4426753c6c5ac7ca8786a2545458",
+          "message": "[query-engine] Tweak slice validation errors (#2721)\n\nRelates to #2636\n\n# Changes\n\n* Tweak the slice validation error messages\n\n---------\n\nCo-authored-by: Drew Relmas <drewrelmas@gmail.com>",
+          "timestamp": "2026-04-21T19:39:49Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/dd344850b0de4426753c6c5ac7ca8786a2545458"
+        },
+        "date": 1776827025549,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 103,
             "unit": "MB"
           }
         ]
