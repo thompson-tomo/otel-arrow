@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1785814942600,
+  "lastUpdate": 1785902166002,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -6727,6 +6727,38 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-arm64-binary-size",
             "value": 99.03,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Mikel Blanchard",
+            "username": "CodeBlanch",
+            "email": "mblanchard@macrosssoftware.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "2d41c4936861dc57023f865da994e00a4d6229bb",
+          "message": "[query-engine] Misc improvements in Value code (#3656)\n\nRelates to #3554\n\n# Changes\n\n* Add a fast path for int\\int and double\\double comparison\n* Move diagnostic code from RecordSet Engine into `Value` so that\nColumnar Engine can reuse it\n\n---------\n\nCo-authored-by: albertlockett <a.lockett@f5.com>\nCo-authored-by: Lalit Kumar Bhasin <lalit_fin@yahoo.com>",
+          "timestamp": "2026-08-05T00:16:35Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/2d41c4936861dc57023f865da994e00a4d6229bb"
+        },
+        "date": 1785902161894,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 111.58,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 99.1,
             "unit": "MB"
           }
         ]
