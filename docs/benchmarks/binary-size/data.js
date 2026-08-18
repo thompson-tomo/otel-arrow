@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1786996001664,
+  "lastUpdate": 1787019077652,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -11655,6 +11655,148 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/thompson-tomo/otel-arrow/commit/a63e93a2d5023369f0e979fa670dd9b2d22f6ae4"
         },
         "date": 1786995972455,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-text-size",
+            "value": 82.26,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-std",
+            "value": 4.55,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otap_df_core_nodes",
+            "value": 3.88,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_array",
+            "value": 3.63,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_expr",
+            "value": 3.4,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_functions_aggregate",
+            "value": 3.06,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_cast",
+            "value": 2.99,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-[Unknown]",
+            "value": 2.97,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_physical_plan",
+            "value": 2.94,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_common",
+            "value": 2.91,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otap_df_query_engine",
+            "value": 2.7,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-text-size",
+            "value": 69.65,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-std",
+            "value": 4.65,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_array",
+            "value": 3.45,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otap_df_core_nodes",
+            "value": 3.3,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_expr",
+            "value": 3.05,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_common",
+            "value": 2.64,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_physical_plan",
+            "value": 2.52,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_functions_aggregate",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_cast",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-[Unknown]",
+            "value": 2.4,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otap_df_query_engine",
+            "value": 2.05,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 114.09,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 101.41,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Laurent Quérel",
+            "username": "lquerel",
+            "email": "l.querel@f5.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "ded78bb19e7bdc01c5426752437481cbbadcbd87",
+          "message": "Align Kafka internal telemetry with enum-based metric attributes (#3760)\n\n# Change Summary\n\nAlign the Kafka receiver and exporter internal telemetry with the\nenum-based\nattribute and metric-set patterns used by the OTLP, OTAP, ...\n\nThis change:\n- Introduces bounded attributes for signal, outcome, error type,\nrejection reason, operation, and topic source.\n- Adds actionable receiver telemetry for message lifecycle,\nacknowledgements, rejections, offset commits, transport errors, consumer\nlag, inflight records, duplicate detection, and consumer-group\nrebalances.\n- Reuses the common `exporter.pdata.exports` metrics for Kafka export\noutcomes.\n- Adds exporter metrics for end-to-end latency, encoding and delivery\nlatency, payload size, failure classification, and routing source.\n- Avoids using Kafka topic names as metric attributes, keeping\ncardinality bounded for regex subscriptions and dynamic tenant routing.\n- Documents the new metric contracts and migration from the legacy\nmetrics.\n\n## What issue does this PR close?\n\n* Related to #3300 and #3530 \n\n## How are these changes tested?\n\n- cargo xtask check\n\n## Are there any user-facing changes?\n\nYes. The Kafka receiver and exporter internal metric names and\ndimensions have\nchanged. Operators must migrate existing dashboards, alerts, and queries\nto the\ndocumented metric sets and bounded attributes. Kafka exporter duration\nmetrics\nare now reported in seconds.\n\n### Changelog\n\n* [x] Added a `.chloggen/*.yaml` entry\n* [ ] This PR is a `chore` (indicated in title)\n* [ ] This is a documentation-only PR.",
+          "timestamp": "2026-08-17T23:55:15Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/ded78bb19e7bdc01c5426752437481cbbadcbd87"
+        },
+        "date": 1787019073358,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
