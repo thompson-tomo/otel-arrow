@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787306171655,
+  "lastUpdate": 1787369844453,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -13231,6 +13231,150 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/thompson-tomo/otel-arrow/commit/26b710aa0c6e5900e94523992c018104db6cfe24"
         },
         "date": 1787306168422,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-text-size",
+            "value": 82.74,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-std",
+            "value": 4.62,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otap_df_core_nodes",
+            "value": 4,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_array",
+            "value": 3.68,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_expr",
+            "value": 3.52,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_functions_aggregate",
+            "value": 3.04,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_common",
+            "value": 3.01,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_cast",
+            "value": 3,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-[Unknown]",
+            "value": 2.97,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_physical_plan",
+            "value": 2.92,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otap_df_query_engine",
+            "value": 2.69,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-text-size",
+            "value": 70.16,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-std",
+            "value": 4.69,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_array",
+            "value": 3.51,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otap_df_core_nodes",
+            "value": 3.51,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_expr",
+            "value": 3.16,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_common",
+            "value": 2.75,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_cast",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_physical_plan",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_functions_aggregate",
+            "value": 2.46,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-[Unknown]",
+            "value": 2.4,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otap_df_query_engine",
+            "value": 2.05,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 114.45,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 101.91,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "drewrelmas@gmail.com",
+            "name": "Drew Relmas",
+            "username": "drewrelmas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "49cf901db37f697e75adfbf380c4fdd8c18c2d67",
+          "message": "chore(repo): Rebalance PR size labels based on recent data (#3854)\n\n# Chore Summary\n\nThe current thresholds put 63% of the 197 PRs merged between July 21 and\nAugust 21, 2026 in `size/L` or `size/XL`. Automation is not driving the\nresult: 72% of the 169 human-authored PRs were labeled L or XL.\n\n| Label | Current range | Current PRs | Current share | New range |\nProjected PRs | Projected share |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: |\n| `size/XS` | 0-8 | 30 | 15% | 0-9 | 31 | 16% |\n| `size/S` | 9-28 | 20 | 10% | 10-29 | 19 | 10% |\n| `size/M` | 29-98 | 23 | 12% | 30-249 | 59 | 30% |\n| `size/L` | 99-498 | 57 | 29% | 250-1,249 | 53 | 27% |\n| `size/XL` | 499+ | 67 | 34% | 1,250+ | 35 | 18% |\n\nBoundaries at 250 and 1,250 make M and L representative of a typical\nchange while keeping XL as a warning for roughly the largest fifth of\nPRs.\n\nI am open to discussion of whether or not we should merge this PR versus\ntrying to keep existing limits and encouraging contributors to break up\nwork into multiple pieces.",
+          "timestamp": "2026-08-21T18:32:04Z",
+          "tree_id": "22c240788136ca98a61775d5a35e1011391758f8",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/49cf901db37f697e75adfbf380c4fdd8c18c2d67"
+        },
+        "date": 1787369839720,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
