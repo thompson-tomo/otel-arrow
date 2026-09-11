@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789104692455,
+  "lastUpdate": 1789114268393,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -19505,6 +19505,150 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-arm64-binary-size",
             "value": 103.29,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "107717825+opentelemetrybot@users.noreply.github.com",
+            "name": "OpenTelemetry Bot",
+            "username": "opentelemetrybot"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8026e0f4b82b3e5089a53b30cdca19433af66745",
+          "message": "chore(ci): avoid template injection in workflows (#3897)\n\n# Chore Summary\n\nMove attacker-controllable GitHub Actions expressions out of shell\nscripts and pass them through step environment variables. This removes\nthe `template-injection` findings without changing the remaining audit\nfindings.\n\nPrerequisite for enabling zizmor as part of the [SIG Security\norganization-wide\nrollout](https://github.com/open-telemetry/sig-security/issues/293).\n\nSplit into its own PR to make it easier to review this large mechnical\nchange.\n\nValidated by running zizmor with the regular persona: zero\n`template-injection` findings and 74 unrelated findings remain.\n\n## Related issue\n\nhttps://github.com/open-telemetry/sig-security/issues/293",
+          "timestamp": "2026-09-10T23:54:44Z",
+          "tree_id": "c9a06b93a288a8eb3a8d1ac028ecdb6c0e0d3655",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/8026e0f4b82b3e5089a53b30cdca19433af66745"
+        },
+        "date": 1789114264515,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-text-size",
+            "value": 83.93,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-std",
+            "value": 4.74,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otel_arrow_dfe_core_nodes",
+            "value": 3.88,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_array",
+            "value": 3.71,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_expr",
+            "value": 3.52,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_functions_aggregate",
+            "value": 3.04,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_common",
+            "value": 3,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_cast",
+            "value": 3,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-[Unknown]",
+            "value": 2.97,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_physical_plan",
+            "value": 2.92,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otel_arrow_dfe_query_engine",
+            "value": 2.68,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-text-size",
+            "value": 71.23,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-std",
+            "value": 4.81,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_array",
+            "value": 3.54,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otel_arrow_dfe_core_nodes",
+            "value": 3.39,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_expr",
+            "value": 3.16,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_common",
+            "value": 2.74,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_cast",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_physical_plan",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_functions_aggregate",
+            "value": 2.47,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-[Unknown]",
+            "value": 2.4,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otel_arrow_dfe_query_engine",
+            "value": 2.04,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 116.08,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 103.41,
             "unit": "MB"
           }
         ]
