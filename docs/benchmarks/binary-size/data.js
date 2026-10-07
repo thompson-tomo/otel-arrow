@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1791265480234,
+  "lastUpdate": 1791349983250,
   "repoUrl": "https://github.com/thompson-tomo/otel-arrow",
   "entries": {
     "Benchmark": [
@@ -26408,6 +26408,148 @@ window.BENCHMARK_DATA = {
           {
             "name": "linux-amd64-crate-otel_arrow_dfe_core_nodes",
             "value": 4.24,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_array",
+            "value": 3.73,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_expr",
+            "value": 3.52,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_functions_aggregate",
+            "value": 3.04,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_common",
+            "value": 3.01,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-arrow_cast",
+            "value": 3,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-[Unknown]",
+            "value": 2.98,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-datafusion_physical_plan",
+            "value": 2.92,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otel_arrow_dfe_pdata",
+            "value": 2.76,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-text-size",
+            "value": 72.45,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-std",
+            "value": 4.89,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otel_arrow_dfe_core_nodes",
+            "value": 3.59,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_array",
+            "value": 3.55,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_expr",
+            "value": 3.17,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_common",
+            "value": 2.75,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-arrow_cast",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_physical_plan",
+            "value": 2.49,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-datafusion_functions_aggregate",
+            "value": 2.47,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-[Unknown]",
+            "value": 2.41,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-crate-otel_arrow_dfe_pdata",
+            "value": 2.34,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-binary-size",
+            "value": 117.79,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-arm64-binary-size",
+            "value": 104.91,
+            "unit": "MB"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Laurent Quérel",
+            "username": "lquerel",
+            "email": "l.querel@f5.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "c1537db0ded2a1147e9928873dbf6d3f0b53cd31",
+          "message": "chore(benchmarks): prevent stale gauge samples from skewing results (#4194)\n\n# Chore Summary\n\nThe Python SDK upgrade from 1.44.0 to 1.45.0 changed cumulative\nsynchronous gauges: the SDK now re-exports their last value even without\na new measurement. The benchmark shares a `MeterProvider` across\nscenarios, so stopped containers keep contributing samples with fresh\ntimestamps. Reports aggregate by component and time, mixing these stale\nvalues into later scenarios and creating apparent performance\nregressions.\n\nFor example, two stopped containers retaining 65% CPU and a current\ncontainer using 38% would produce a reported average of 56%.\n\nRequest `DELTA` temporality for synchronous gauges in the framework's\nreporting exporter to restore fresh-samples-only collection. Gauge\nvalues remain absolute, and counters remain cumulative. The fix changes\nbenchmark reporting only; engine behavior is unchanged.\n\n## Related issue\n\n- SDK upgrade: #4010\n- Upstream gauge behavior change:\nhttps://github.com/open-telemetry/opentelemetry-python/pull/5637\n\n## Validation\n\n- Orchestrator suite: **249 tests passed**, including a regression test\ncovering stale gauge suppression, absolute gauge values, and cumulative\ncounters.\n- Confirmed the new test fails with the previous cumulative gauge\nconfiguration.",
+          "timestamp": "2026-09-30T03:48:48Z",
+          "url": "https://github.com/thompson-tomo/otel-arrow/commit/c1537db0ded2a1147e9928873dbf6d3f0b53cd31"
+        },
+        "date": 1791349978272,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "linux-amd64-text-size",
+            "value": 85.36,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-std",
+            "value": 4.78,
+            "unit": "MB"
+          },
+          {
+            "name": "linux-amd64-crate-otel_arrow_dfe_core_nodes",
+            "value": 4.28,
             "unit": "MB"
           },
           {
